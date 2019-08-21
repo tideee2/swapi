@@ -1,1 +1,17 @@
 <p>search-bar works!</p>
+<!--<div *ngIf="data | async">-->
+  <div *ngFor="let val of objectKeys(temp)">
+    <h1>{{val + ':' + temp[val].count}}</h1>
+    <div *ngFor="let x of temp[val].results">
+      {{x.name || x.title}}
+      <hr>
+      <div *ngIf="(x.films) && (x.films) !== []">
+        <div *ngFor="let film of x.films">
+<!--          <div *ngIf="film | async">-->
+<!--            {{(film | async).title}}-->
+<!--          </div>-->
+        </div>
+      </div>
+    </div>
+  </div>
+<!--</div>-->
