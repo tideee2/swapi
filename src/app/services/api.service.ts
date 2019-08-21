@@ -34,44 +34,7 @@ export class ApiService {
             data: this.getPartData(`${value[key]}?search=${query}`)
           };
         });
-      }),
-      tap(value => {
-          console.log(value);
-          value[0].data.subscribe(x => {
-            console.log(x.results[0]);
-            x.results[0].films.forEach(film => {
-              film.subscribe(y => {
-                // this.subject.next(y);
-              });
-            });
-          });
-        }),
-      tap (value => {
-        value.forEach(x => {
-          // console.log(x);
-          x.data.subscribe(y => {
-            // console.log(y);
-            y.results.forEach(z => {
-              console.warn(z);
-              for (let i = 0; i < PARTS.length; i++) {
-                if (z[PARTS[i]] && z[PARTS[i]] !== []) {
-                  z[PARTS[i]].forEach(q => {
-                    q.subscribe(w => {
-                      // this.subject.next({
-                      //   key: x.key,
-                      //   type: PARTS[i],
-                      //   owner: z.name || z.title,
-                      //   data: w
-                      // });
-                    });
-                  });
-                }
-              }
-            });
-          });
-        });
-      })
-    );
+      }));
   }
 
   getPartData(link: string) {

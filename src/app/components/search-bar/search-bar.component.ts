@@ -11,10 +11,11 @@ const PARTS = environment.parts;
   styleUrls: ['./search-bar.component.scss']
 })
 export class SearchBarComponent implements OnInit {
-  data: any = [];
+  outputData: any = [];
   temp: any = {};
   nestedObj: any = {};
   objectKeys = Object.keys;
+  PARTS = PARTS;
   constructor(private apiSrv: ApiService) { }
 
   ngOnInit() {
@@ -22,22 +23,21 @@ export class SearchBarComponent implements OnInit {
     this.apiSrv.getAllData('g')
       .subscribe(value => {
         console.log(value);
-        value.map(link => {
-          link.data.subscribe(info => {
-            this.temp[link.key] = info;
-            console.log(this.temp);
-            this.data.push({
-              key: link.key,
-              data: info
-            });
+        value.forEach(val => {
+          val.data.subscribe(res => {
+              // console.log(res);
+            console.log(value.key);
+            this.outputData.push({key: val.key, data: res});
           });
         });
     },
       err => {
         console.log(err);
       },
-      () => {
-        console.log(this.data);
+      () => {console.log('complete');
     });
+  }
+  removeSymbols(value: string, args?: any): string {
+    return value.replace(/[^a-zA-Z0-9]/g, '');
   }
 }

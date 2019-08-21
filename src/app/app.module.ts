@@ -1,10 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import bootstrap from 'bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { ResultBoxComponent } from './components/result-box/result-box.component';
+import { ItemComponent } from './components/item/item.component';
 import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
@@ -12,7 +14,8 @@ import {HttpClientModule} from '@angular/common/http';
     AppComponent,
     SearchBarComponent,
     ResultBoxComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    ItemComponent
   ],
   imports: [
     BrowserModule,
