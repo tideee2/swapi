@@ -1,4 +1,4 @@
-<alert *ngIf="isError" [attr.type]="errorAlert.type" [dismissible]="isError" (onClosed)="onClosedAlert(errorAlert)" [dismissOnTimeout]="errorAlert.timeout">
+<alert *ngIf="isError" [type]="errorAlert.type" [dismissible]="isError" (onClosed)="onClosedAlert(errorAlert)" [dismissOnTimeout]="errorAlert.timeout">
   <strong>Error</strong> {{errorAlert.msg}}
 </alert>
 <div *ngIf="isLoading" class="d-flex justify-content-center">
@@ -9,6 +9,7 @@
   <div *ngFor="let lvl1Data of outputData" class="card border-danger">
     <div class="card-body">
       <h3 class="list-name card-title border-bottom">{{lvl1Data.key}}</h3>
+      <span class="text-danger" *ngIf="!lvl1Data.data.count">empty</span>
       <div *ngFor="let lvl2Data of lvl1Data.data.results">
         <h4>
           <a class="btn btn-primary"

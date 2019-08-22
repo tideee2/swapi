@@ -1,0 +1,12 @@
+<mat-toolbar class="d-flex justify-content-center">
+  <mat-toolbar-row>
+    <mat-form-field class="input-container">
+      <mat-label>Enter query for searching ...</mat-label>
+      <input matInput placeholder="Example: Luke..." #searchQuery>
+    </mat-form-field>
+  </mat-toolbar-row>
+  <mat-toolbar-row class="d-flex justify-content-end">
+    <button mat-raised-button class="f-20" color="primary" (click)="clickSearch()">Start search</button>
+  </mat-toolbar-row>
+</mat-toolbar>
+

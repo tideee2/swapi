@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import {ApiService} from '../../services/api.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import {ApiService} from '../../../services/api.service';
 import {catchError, finalize, timeout} from 'rxjs/operators';
-import * as Config from '../../config/app.config';
-import {ResultModel} from '../../models/searchQuery.model';
+import * as Config from './../../../config/app.config';
+import {ResultModel} from '../../../models/searchQuery.model';
 
 const PARTS = Config.PARTS;
 
@@ -11,7 +11,7 @@ const PARTS = Config.PARTS;
   templateUrl: './result-box.component.html',
   styleUrls: ['./result-box.component.scss']
 })
-export class ResultBoxComponent implements OnInit {
+export class ResultBoxComponent implements OnInit, OnDestroy {
   outputData: {key: string, data: ResultModel}[] = [];
   temp: any = {};
   nestedObj: any = {};
@@ -27,13 +27,16 @@ export class ResultBoxComponent implements OnInit {
   };
 
   constructor(public apiSrv: ApiService) {
+  }
+
+  ngOnInit() {
     this.apiSrv.searchEvent$.subscribe(query => {
       console.log(query);
       this.startSearch(query);
     });
   }
 
-  ngOnInit() {
+  ngOnDestroy(): void {
   }
 
   startSearch(query) {
@@ -41,7 +44,7 @@ export class ResultBoxComponent implements OnInit {
     this.isError = false;
     this.outputData = [];
     this.apiSrv.getDataFromQuery(query).pipe(
-      timeout(5000),
+      timeout(10000),
       catchError(err => {
         console.log(err);
         throw new Error('timelimit error');
@@ -68,7 +71,7 @@ export class ResultBoxComponent implements OnInit {
         err => {
           this.isError = true;
           this.errorAlert.msg = err.message;
-          this.errorAlert.timeout = 3000;
+          this.errorAlert.timeout = 5000;
           console.log(err.message);
         },
         () => {console.log('complete');

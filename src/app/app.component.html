@@ -1,4 +1,16 @@
+<mat-toolbar color="primary">
+  <span class="fill-remaining-space">
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu" [overlapTrigger]="true">
+      <button mat-menu-item *ngFor="let link of menuLinks" [routerLink]="link.url">
+        <mat-icon>{{link.icon}}</mat-icon>
+        <span>{{link.text}}</span>
+      </button>
+    </mat-menu>
+  </span>
+  <span class="fill-remaining-space">{{title}}</span>
+</mat-toolbar>
 
-<app-search-bar></app-search-bar>
-<app-result-box></app-result-box>
 <router-outlet></router-outlet>

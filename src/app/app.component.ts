@@ -6,5 +6,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'swapi';
+  title = 'Search in swapi.co';
+  menuLinks = [
+    {
+      text: 'material design',
+      icon: 'home',
+      url: '/material'
+    },
+
+    {
+      text: 'old design',
+      icon: 'book',
+      url: '/old'
+    }
+  ];
 }
