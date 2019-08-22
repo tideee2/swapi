@@ -1,21 +1,23 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {BehaviorSubject, forkJoin, from, merge, Observable, of} from 'rxjs';
-import {PeopleModel, PeopleModelQuery} from '../models/people.model';
-import {map, tap, mergeMap, combineAll, toArray, flatMap} from 'rxjs/operators';
-import {environment} from '../../environments/environment';
-import {ajax} from 'rxjs/ajax';
+import { BehaviorSubject, Observable, of, Subject} from 'rxjs';
+import {map, catchError} from 'rxjs/operators';
+import {ResultModel, SearchQueryModel} from '../models/searchQuery.model';
+import {UrlModel} from '../models/url.model';
+import * as Config from '../config/app.config';
 
-const PARTS = environment.parts;
-const paths = environment.paths;
+const PARTS = Config.PARTS;
+const paths = Config.PATHS;
+const URL = Config.URL;
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  subject = new BehaviorSubject(null);
-  subjectTemp = new BehaviorSubject(null);
+
+  searchEvent$ = new Subject();
 
   subjectArr: any = {};
+
   constructor(private http: HttpClient) {
     PARTS.forEach(el => {
       // this.subjectArr.push(new BehaviorSubject(null));
@@ -24,11 +26,19 @@ export class ApiService {
     console.log(this.subjectArr);
   }
 
-  getAllData(query: string = 'k'): Observable<any> {
-    return this.http.get('https://swapi.co/api/?format=json').pipe(
+  getUrls(): Observable<UrlModel> {
+    return this.http.get<UrlModel>(`${Config.URL}?format=json`);
+  }
+
+  getDataFromQuery(query: string = 'k'): Observable<{key: string, data: any}[]> {
+    return this.getUrls().pipe(
+      catchError(err => {
+        console.log(err);
+        return  of('timelimit error');
+      }),
       map(value => {
-        console.log(value);
         return Object.keys(value).map(key => {
+          // console.warn(this.getPartData(`${value[key]}?search=${query}`));
           return {
             key,
             data: this.getPartData(`${value[key]}?search=${query}`)
@@ -37,28 +47,23 @@ export class ApiService {
       }));
   }
 
-  getPartData(link: string) {
-    return this.http.get(link).pipe(
+  getPartData(link: string): Observable<any> {
+    return this.http.get<SearchQueryModel[]>(link).pipe(
       map((value: any) => {
         const x = value.results.map(data => {
-          for (let i = 0; i < PARTS.length; i++) {
-            if (data[PARTS[i]] && data[PARTS[i]] !== []) {
-              data[PARTS[i]] = data[PARTS[i]].map(part => {
-                return this.getNestedData(part);
+          for (const part of PARTS) {
+            if (data[part] && data[part] !== []) {
+              data[part] = data[part].map(val => {
+                return this.getDataFromLink(val);
               });
-            }
-          }
+          }}
           return data;
         });
         return value;
       })
     );
   }
-  getNestedData(link: string): Observable<any> {
-    return this.http.get(link);
+  getDataFromLink(link: string): Observable<ResultModel> {
+    return this.http.get<ResultModel>(link);
   }
-}
-
-export class Test {
-  t: string;
 }

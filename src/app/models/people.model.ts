@@ -16,9 +16,3 @@ export interface PeopleModel {
   created: string;
   edited: string;
 }
-export interface PeopleModelQuery {
-  count: number;
-  next: string;
-  previous: string;
-  results: PeopleModel[];
-}

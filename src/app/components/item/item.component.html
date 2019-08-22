@@ -1,0 +1,6 @@
+<div *ngIf="data && (data.name || data.title); else showPreload">
+  <i>{{data.name || data.title}}</i>
+</div>
+<ng-template #showPreload>
+  <img src="https://barb.ua/images/default-loading.gif" style="width:50px">
+</ng-template>

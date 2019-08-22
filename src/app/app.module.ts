@@ -8,6 +8,7 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
 import { ResultBoxComponent } from './components/result-box/result-box.component';
 import { ItemComponent } from './components/item/item.component';
 import {HttpClientModule} from '@angular/common/http';
+import { AlertModule } from 'ngx-bootstrap/alert';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {HttpClientModule} from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    AlertModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
