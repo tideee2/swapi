@@ -7,7 +7,9 @@ import {
   MatMenuModule,
   MatButtonModule,
   MatFormFieldModule,
-  MatInputModule, MatCardModule
+  MatInputModule,
+  MatCardModule,
+  MatExpansionModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -22,7 +24,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatExpansionModule
   ],
   exports: [
     MatSidenavModule,
@@ -34,7 +37,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatExpansionModule
   ]
 })
 export class MaterialModule {}

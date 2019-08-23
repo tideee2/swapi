@@ -1,36 +1,60 @@
-<alert *ngIf="isError" [type]="errorAlert.type" [dismissible]="isError" (onClosed)="onClosedAlert(errorAlert)" [dismissOnTimeout]="errorAlert.timeout">
+<alert
+  *ngIf="isError"
+  [type]="errorAlert.type"
+  [dismissible]="isError"
+  (onClosed)="onClosedAlert(errorAlert)"
+  [dismissOnTimeout]="errorAlert.timeout">
   <strong>Error</strong> {{errorAlert.msg}}
 </alert>
 <div *ngIf="isLoading" class="d-flex justify-content-center">
   <img src="https://barb.ua/images/default-loading.gif" style="width:200px">
 </div>
 <mat-card class="flex-wrap" fxLayout="row wrap" fxLayoutAlign="space-between space-between" *ngIf="outputData">
-  <mat-card *ngFor="let lvl1Data of outputData" class="single-card" fxFlex="1 1 auto">
+  <mat-card *ngFor="let lvl1Data of outputData" class="single-card border shadow-none" fxFlex="1 1 auto">
     <div class="card-body">
       <h3 class="list-name card-title border-bottom">{{lvl1Data.key}}</h3>
       <span class="text-danger" *ngIf="!lvl1Data.data.count">empty</span>
-      <div *ngFor="let lvl2Data of lvl1Data.data.results">
-        <h4>
-          <a class="btn btn-primary"
-             data-toggle="collapse"
-             [attr.href]="'#' + removeSymbols(lvl2Data['name'] || lvl2Data['title'])"
-             role="button"
-             aria-expanded="false"
-             [attr.aria-controls]="removeSymbols(lvl2Data['name'] || lvl2Data['title'])">
-            {{lvl2Data['name'] || lvl2Data['title']}}
-          </a>
-        </h4>
-        <div class="collapse" [attr.id]="removeSymbols(lvl2Data['name'] || lvl2Data['title'])">
-          <div *ngFor="let nestedData of PARTS">
-            <div *ngIf="lvl2Data[nestedData] && lvl2Data[nestedData].length !== 0">
-              <h5 class="border-bottom border-dark">{{nestedData + ':' + lvl2Data[nestedData].length}}</h5>
-              <div *ngFor="let film of lvl2Data[nestedData]">
-                <app-item [obs]="film"></app-item>
+<!--      <div *ngFor="let lvl2Data of lvl1Data.data.results">-->
+        <mat-accordion *ngFor="let lvl2Data of lvl1Data.data.results">
+          <mat-expansion-panel class="shadow-none">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{lvl2Data['name'] || lvl2Data['title']}}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div *ngFor="let nestedData of PARTS">
+              <div *ngIf="lvl2Data[nestedData] && lvl2Data[nestedData].length !== 0">
+                <mat-list role="list" >
+                  <h5 class="border-bottom border-dark">{{nestedData + ':' + lvl2Data[nestedData].length}}</h5>
+                  <div *ngFor="let film of lvl2Data[nestedData]">
+                    <app-item [obs]="film"></app-item>
+                  </div>
+                </mat-list>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+<!--        <h4>-->
+<!--          <a class="btn btn-primary"-->
+<!--             data-toggle="collapse"-->
+<!--             [attr.href]="'#' + removeSymbols(lvl2Data['name'] || lvl2Data['title'])"-->
+<!--             role="button"-->
+<!--             aria-expanded="false"-->
+<!--             [attr.aria-controls]="removeSymbols(lvl2Data['name'] || lvl2Data['title'])">-->
+<!--            {{lvl2Data['name'] || lvl2Data['title']}}-->
+<!--          </a>-->
+<!--        </h4>-->
+<!--        <div class="collapse" [attr.id]="removeSymbols(lvl2Data['name'] || lvl2Data['title'])">-->
+<!--          <div *ngFor="let nestedData of PARTS">-->
+<!--            <div *ngIf="lvl2Data[nestedData] && lvl2Data[nestedData].length !== 0">-->
+<!--              <h5 class="border-bottom border-dark">{{nestedData + ':' + lvl2Data[nestedData].length}}</h5>-->
+<!--              <div *ngFor="let film of lvl2Data[nestedData]">-->
+<!--                <app-item [obs]="film"></app-item>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
     </div>
   </mat-card>
 </mat-card>
