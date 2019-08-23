@@ -13,11 +13,15 @@ export class AppComponent {
       icon: 'home',
       url: '/material'
     },
-
     {
       text: 'old design',
       icon: 'book',
       url: '/old'
+    },
+    {
+      text: 'rx',
+      icon: 'book',
+      url: '/rx'
     }
   ];
 }

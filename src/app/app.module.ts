@@ -16,6 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialSearchBarComponent } from './components/material-page/material-search-bar/material-search-bar.component';
 import { MaterialResultBoxComponent } from './components/material-page/material-result-box/material-result-box.component';
 import { ScrollTopComponent } from './components/scroll-top/scroll-top.component';
+import { RxComponent } from './components/rx/rx.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ScrollTopComponent } from './components/scroll-top/scroll-top.component
     OldPageComponent,
     MaterialSearchBarComponent,
     MaterialResultBoxComponent,
-    ScrollTopComponent
+    ScrollTopComponent,
+    RxComponent
   ],
   imports: [
     BrowserModule,
