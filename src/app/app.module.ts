@@ -17,6 +17,7 @@ import { MaterialSearchBarComponent } from './components/material-page/material-
 import { MaterialResultBoxComponent } from './components/material-page/material-result-box/material-result-box.component';
 import { ScrollTopComponent } from './components/scroll-top/scroll-top.component';
 import { RxComponent } from './components/rx/rx.component';
+import {PrimengModule} from './shared/primeng.module';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { RxComponent } from './components/rx/rx.component';
     AppRoutingModule,
     HttpClientModule,
     MaterialModule,
-    AlertModule.forRoot()
+    AlertModule.forRoot(),
+    PrimengModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,1 +1,16 @@
-<p>rx works!</p>
+
+<p-organizationChart [value]="data" styleClass="company" collapse *ngIf="data[0].children.length; else showData">
+  <ng-template let-node pTemplate="leaf">
+    <span style="font-weight:bold">{{node.label}}</span>
+  </ng-template>
+  <ng-template let-node pTemplate="default">
+    {{node.label}}
+  </ng-template>
+</p-organizationChart>
+<p>{{data[0].children.length}}</p>
+<ng-template #showData>
+  <div class="d-flex justify-content-center">
+    <img src="https://barb.ua/images/default-loading.gif" style="width:200px">
+  </div>
+
+</ng-template>
